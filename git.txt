@@ -1,0 +1,57 @@
+*****commonpackage---每一步前后都用git status看看状态
+1. (master)    git add                 add修改和新增文件  
+2. (master)    git commit -m"info"     commonpackage根目录下提交    
+3. (master)    git pull后会有2个commit commonpackage根目录下拉代码  
+4. 解决2commit git rebase -i  注：没有冲突成功合并后为1个commit  success=>(master) 
+5. (master)    git review -R -v
+6. add person to review code
+7. 通过后再  git pull 更新代码去除超前的那个commit
+****kernel
+add->commit->pull->自动融合失败(即为2个commit)，master|MERGING状态，需解决conflict(一般是保留前一个)(Unmerged paths...),解决完git commit结束MERGING状态,然后git rebase -i解决多个commit，此时git rebase -i状态下应该还得再次解决conflict(一般是保留后一个)
+(master|REBASE -i)状态下add解决完冲突的文件->git rebase --continue
+ 
+
+****
+使用Gerrit注意以下事项：
+1、尽量少使用commit，每次都用git add将工作区的东西放在暂存区管理，然后在git review前调用一次 git commit
+
+2、第一次调用git commit之后，通过git add和git commit --amend对前面的提交进行修订。
+
+3、千万不能删除默认的GeovisGerritAdmin账号，Jenkins的静态检查以及编译和代码合并全部需要该账号执行操作。
+
+在git review前通过git log |HEAD命令查看本地存在的commit次数，如下图，可查看到存在2个commitid，提交了2次，需要进行合并commit后再提交
+
+****
+git状态
+master
+master|MERGING
+master|REBASE -i
+HEAD->master
+origin/master, origin/HEAD
+
+****
+命令
+git status 
+git add .  -u(添加git status状态下not staged或not commit的文件)
+git commit -s -a -m"message"
+git commit --amend //对之前的commit进行更新修改
+git log|HEAD //查看当前的提交是否只有一个
+git review -R -v
+git checkout --HEAD index.js //拉index.js文件
+git diff index.js//查看变化
+git log 
+git reflog
+git rebase --abort
+git reset commitId --hard //回退到某一版
+git reset HEAD .或 git reset HEAD -filename //撤销所有add的文件或某个文件或文件夹里面add过的文件
+git rm --cache index.js//取消追踪，保留本地文件
+git rm filename -r -f //删除filename文件夹及里面所有文件
+git rm --f index.js //删除追踪并删除本地文件
+git rm --help //查看rm帮助
+ls //查看当前目录下内容
+
+****
+git config --global --list
+git config --global core.autocrlf true //开启自动转换 换行to手动换行符
+git config --global user.name  //查看当前用户
+git config --global user.email //查看当前绑定邮箱
