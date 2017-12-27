@@ -1,3 +1,5 @@
+gitURL
+opencvjs--https://github.com/ucisysarch/opencvjs.git
 *****commonpackage---每一步前后都用git status看看状态
 1. (master)    git add                 add修改和新增文件  
 2. (master)    git commit -m"info"     commonpackage根目录下提交    
@@ -44,6 +46,8 @@ git reflog
 git rebase --abort
 git reset commitId --hard //回退到某一版
 git reset HEAD .或 git reset HEAD -filename //撤销所有add的文件或某个文件或文件夹里面add过的文件
+git reset --mixed HEAD //将当前改动从缓存区staged区域移除，但改动还留在工作目录中，即缓存区和指定的提交同步，但工作目录不受影响
+git reset --hard HEAD  //缓存区和工作目录都同步到指定的提交，也就是工作目录中的改动将被舍弃
 git rm --cache index.js//取消追踪，保留本地文件
 git rm filename -r -f //删除filename文件夹及里面所有文件
 git rm --f index.js //删除追踪并删除本地文件
